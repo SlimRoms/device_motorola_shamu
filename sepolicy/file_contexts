@@ -160,3 +160,6 @@
 # TapToWake
 /sys/bus/i2c/devices/1-004a/dt2w                u:object_r:sysfs:s0
 
+# Vibrator Intensity
+/sys/vibrator/pwmvalue                                   u:object_r:sysfs:s0
+
