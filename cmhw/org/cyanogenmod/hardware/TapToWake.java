@@ -17,13 +17,14 @@
 package org.cyanogenmod.hardware;
 
 import org.cyanogenmod.hardware.util.FileUtils;
+import java.io.File;
 
 public class TapToWake {
 
     private static String CONTROL_PATH = "/sys/bus/i2c/devices/1-004a/dt2w";
 
     public static boolean isSupported() {
-        return true;
+        return new File(CONTROL_PATH).exists();
     }
 
     public static boolean isEnabled()  {
