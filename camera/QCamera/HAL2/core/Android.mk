@@ -1,4 +1,3 @@
-
 #ifeq ($(TARGET_BOARD_PLATFORM),msm8960)
 OLD_LOCAL_PATH := $(LOCAL_PATH)
 LOCAL_PATH := $(call my-dir)
@@ -53,9 +52,9 @@ LOCAL_C_INCLUDES := \
         $(LOCAL_PATH)/../../stack/mm-jpeg-interface/inc\
         $(TARGET_OUT_INTERMEDIATES)/include/mm-camera-interface_badger \
 
-LOCAL_C_INCLUDES += hardware/qcom/display/libgralloc \
-        hardware/qcom/display/libgenlock \
-        hardware/qcom/media/msm8974/libstagefrighthw \
+LOCAL_C_INCLUDES += $(call project-path-for,qcom-display)/libgralloc \
+        $(call project-path-for,qcom-display)/libgenlock \
+        $(call project-path-for,qcom-media)/msm8974/libstagefrighthw \
 	system/media/camera/include
 
 # if debug service layer and up , use stub camera!
