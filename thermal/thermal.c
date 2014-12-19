@@ -46,7 +46,7 @@
 #define CPU_THROTTLING_THRESHOLD    60
 
 #define BATTERY_SHUTDOWN_THRESHOLD  68
-// vendor/moto/shamu/proprietary/thermal-engine/thermal-engine-shamu.conf
+// vendor/motorola/shamu/proprietary/thermal-engine/thermal-engine-shamu.conf
 #define SKIN_THROTTLING_THRESHOLD   40
 
 #define GPU_LABEL                   "GPU"
