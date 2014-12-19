@@ -42,6 +42,10 @@ LOCAL_C_INCLUDES+= \
         $(LOCAL_PATH)/../../../mm-image-codec/qexif \
         $(LOCAL_PATH)/../../../mm-image-codec/qomx_core
 
+LOCAL_C_INCLUDES+= $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/media
+LOCAL_C_INCLUDES+= $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+
 LOCAL_C_INCLUDES+= $(kernel_includes)
 LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)
 
@@ -153,6 +157,10 @@ LOCAL_C_INCLUDES+= \
         $(LOCAL_PATH)/../common \
         $(LOCAL_PATH)/../../../mm-image-codec/qexif \
         $(LOCAL_PATH)/../../../mm-image-codec/qomx_core
+
+LOCAL_C_INCLUDES+= $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/media
+LOCAL_C_INCLUDES+= $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
 LOCAL_C_INCLUDES+= $(kernel_includes)
 LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)

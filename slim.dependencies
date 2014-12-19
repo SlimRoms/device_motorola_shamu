@@ -1,0 +1,7 @@
+[
+  {
+  "repository": "SlimRoms/kernel_motorola_shamu",
+  "target_path": "kernel/motorola/shamu",
+  "branch": "ng7.0"
+  }
+]
