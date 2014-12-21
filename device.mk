@@ -297,6 +297,10 @@ PRODUCT_COPY_FILES += \
     device/moto/shamu/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
     device/moto/shamu/nfc/libnfc-brcm-20795a10.conf:system/etc/libnfc-brcm-20795a10.conf
 
+# NFCEE access control
+PRODUCT_COPY_FILES += \
+    device/moto/shamu/nfcee_access.xml:system/etc/nfcee_access.xml
+
 # old-apns.conf
 PRODUCT_COPY_FILES += \
     device/moto/shamu/old-apns-conf.xml:system/etc/old-apns-conf.xml
