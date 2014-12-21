@@ -295,6 +295,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/motorola/shamu/nfcee_access.xml:system/etc/nfcee_access.xml
 
+# NFCEE access control
+PRODUCT_COPY_FILES += \
+    device/moto/shamu/nfcee_access.xml:system/etc/nfcee_access.xml
+
 # old-apns.conf
 PRODUCT_COPY_FILES += \
     device/motorola/shamu/old-apns-conf.xml:system/etc/old-apns-conf.xml
