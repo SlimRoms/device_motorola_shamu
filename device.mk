@@ -237,6 +237,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.force_eri_from_xml=true \
     ro.telephony.default_network=10 \
+    ro.telephony.get_imsi_from_sim=true \
     telephony.lteOnCdmaDevice=1
 
 # Allow carrier tethering
