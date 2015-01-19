@@ -26,6 +26,11 @@ PRODUCT_COPY_FILES += \
     device/motorola/shamu/fstab.shamu:root/fstab.shamu \
     device/motorola/shamu/ueventd.shamu.rc:root/ueventd.shamu.rc
 
+# Kernel ramdisk files
+PRODUCT_COPY_FILES += \
+    kernel/motorola/shamu/lk.ramdisk/sbin/lkconfig:root/sbin/lkconfig \
+    kernel/motorola/shamu/lk.ramdisk/sbin/lk-post-boot.sh:root/sbin/lk-post-boot.sh
+
 # Input device files for shamu
 PRODUCT_COPY_FILES += \
     device/motorola/shamu/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
