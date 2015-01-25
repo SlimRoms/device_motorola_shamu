@@ -17,6 +17,7 @@
 import init.shamu.usb.rc
 import init.shamu.power.rc
 import init.shamu.diag.rc
+import init.lk.rc
 
 on early-init
     mkdir /firmware 0771 system system
@@ -102,6 +103,10 @@ on post-fs-data
 
     # rild files
     mkdir /data/misc/audio_cutback 0770 radio audio
+
+    # lkconfig permissions
+    chmod 0700 /sbin/lk-post-boot.sh
+    chmod 0755 /sbin/lkconfig
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
