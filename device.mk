@@ -31,7 +31,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     kernel/motorola/shamu/lk.ramdisk/sbin/lkconfig:root/sbin/lkconfig \
     kernel/motorola/shamu/lk.ramdisk/sbin/lkconfig:root/sbin/lk \
-    kernel/motorola/shamu/lk.ramdisk/sbin/lk-post-boot.sh:root/sbin/lk-post-boot.sh
+    kernel/motorola/shamu/lk.ramdisk/sbin/nofreq-mpd:root/sbin/nofreq-mpd \
+    kernel/motorola/shamu/lk.ramdisk/sbin/stock-mpd:root/sbin/stock-mpd \
+    kernel/motorola/shamu/lk.ramdisk/sbin/lkcc:root/sbin/lkcc \
+    kernel/motorola/shamu/lk.ramdisk/sbin/lk-post-boot.sh:root/sbin/lk-post-boot.sh \
+    kernel/motorola/shamu/lk.ramdisk/init.lk.rc:root/init.lk.rc 
 
 # Input device files for shamu
 PRODUCT_COPY_FILES += \
