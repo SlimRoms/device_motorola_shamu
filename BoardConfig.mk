@@ -31,7 +31,8 @@ BOARD_RAMDISK_OFFSET     := 0x02000000
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 TARGET_KERNEL_CONFIG := lk_defconfig
 TARGET_KERNEL_SOURCE := kernel/motorola/shamu
-TARGET_GCC_VERSION_ARM := linaro-4.9-14.06/bin/arm-linux-gnueabihf-
+KERNEL_TOOLCHAIN_PREFIX := arm-linux-gnueabihf-
+KERNEL_TOOLCHAIN := "$(ANDROID_BUILD_TOP)/prebuilt/$(HOST_OS)-x86/toolchain/linaro-4.9-14.06/bin/"
 
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 vmalloc=340M selinux=permissive androidboot.console=ttyHSL0 androidboot.hardware=shamu msm_rtb.filter=0x37 ehci-hcd.park=3 utags.blkdev=/dev/block/platform/msm_sdcc.1/by-name/utags utags.backup=/dev/block/platform/msm_sdcc.1/by-name/utagsBackup coherent_pool=8M
 
