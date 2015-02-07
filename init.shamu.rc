@@ -107,6 +107,7 @@ on post-fs-data
     # lkconfig permissions
     chmod 0700 /sbin/lk-post-boot.sh
     chmod 0755 /sbin/lkconfig
+    chmod 666 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
