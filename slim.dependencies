@@ -1,7 +1,7 @@
 [
   {
-  "repository": "SlimRoms/kernel_motorola_shamu",
+  "repository": "imoseyon/leanKernel-shamu",
   "target_path": "kernel/motorola/shamu",
-  "branch": "lp5.0"
+  "branch": "lk-lp"
   }
 ]
