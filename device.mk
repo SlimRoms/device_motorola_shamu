@@ -34,6 +34,8 @@ PRODUCT_COPY_FILES += \
     kernel/motorola/shamu/lk.ramdisk/sbin/nofreq-mpd:root/sbin/nofreq-mpd \
     kernel/motorola/shamu/lk.ramdisk/sbin/stock-mpd:root/sbin/stock-mpd \
     kernel/motorola/shamu/lk.ramdisk/sbin/lkcc:root/sbin/lkcc \
+    kernel/motorola/shamu/lk.ramdisk/sbin/supolicy:root/sbin/supolicy \
+    kernel/motorola/shamu/lk.ramdisk/sbin/lk-selinux-mode.sh:root/sbin/lk-selinux-mode.sh \
     kernel/motorola/shamu/lk.ramdisk/sbin/lk-post-boot.sh:root/sbin/lk-post-boot.sh \
     kernel/motorola/shamu/lk.ramdisk/init.lk.rc:root/init.lk.rc 
 
