@@ -308,12 +308,12 @@
         <item>SUPL_ES=0</item>
     </string-array>
 
- <!-- Device will display option to wake only if proximity sensor is uncovered 
+    <!-- Device will display option to wake only if proximity sensor is uncovered -->
     <bool name="config_proximityCheckOnWake">true</bool>
-    <integer name="config_proximityCheckTimeout">400</integer-->
+    <integer name="config_proximityCheckTimeout">400</integer>
 
-    <!-- Wether doze feature is enabled by default in settings.
-    <bool name="config_doze_enabled_by_default">false</bool-->
+    <!-- Whether doze feature is enabled by default in settings.-->
+    <bool name="config_doze_enabled_by_default">false</bool>
 
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>
