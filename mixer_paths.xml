@@ -823,8 +823,6 @@
 
 	<path name="voice-handset">
 		<path name="handset" />
-	    <!-- Port mixer is common bit for all voice verbs -->
-		<ctl name="QUAT_MI2S_RX Port Mixer SLIM_1_TX" value="1" />
 	</path>
 
 	<path name="voice-hac-handset">
@@ -836,9 +834,6 @@
 	</path>
 
 	<path name="voice-speaker">
-	    <!-- port mixer controls are common to all voice verbs -->
-		<ctl name="QUAT_MI2S_RX Port Mixer SLIM_1_TX" value="1" />
-		<ctl name="SLIMBUS_3_RX Port Mixer QUAT_MI2S_TX" value="1" />
 		<!-- Disable earpiece mode -->
 		<ctl name="BOOST earpiece mode" value="Off" />
 		<!-- Enable Mixer to power up Left IC -->
@@ -891,9 +886,6 @@
 	</path>
 
 	<path name="bt-sco-headset">
-		<ctl name="SLIMBUS_1_RX Port Mixer AUX_PCM_UL_TX" value="1" />
-		<ctl name="AUX_PCM_RX Port Mixer SLIM_1_TX" value="1" />
-		<ctl name="SLIMBUS_3_RX Port Mixer AUX_PCM_RX" value="1" />
 	</path>
 
 	<path name="bt-sco-mic">
@@ -903,7 +895,6 @@
 	</path>
 
 	<path name="bt-sco-headset-wb">
-	    <path name="bt-sco-headset" />
 	</path>
 
 	<path name="bt-sco-mic-wb">
@@ -1009,8 +1000,6 @@
     </path>
 
     <path name="voice-tx">
-        <ctl name="AFE_PCM_RX Port Mixer SLIM_1_TX" value="1" />
-        <ctl name="SLIMBUS_3_RX Port Mixer AFE_PCM_RX" value="1" />
     </path>
 
 </mixer>
