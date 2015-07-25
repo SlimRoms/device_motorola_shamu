@@ -316,7 +316,7 @@
 
     <!-- Device will display option to wake only if proximity sensor is uncovered -->
     <bool name="config_proximityCheckOnWake">true</bool>
-    <integer name="config_proximityCheckTimeout">400</integer>
+    <integer name="config_proximityCheckTimeout">100</integer>
 
     <!-- Whether doze feature is enabled by default in settings.-->
     <bool name="config_doze_enabled_by_default">false</bool>
