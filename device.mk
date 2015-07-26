@@ -308,6 +308,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
+# Enable USB OTG
+ADDITIONAL_BUILD_PROPERTIES += \
+    persist.sys.isUsbOtgEnabled=true
+
 # Modem debugger
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PACKAGES += \
