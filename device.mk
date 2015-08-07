@@ -94,6 +94,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/motorola/shamu/spn-conf.xml:system/etc/spn-conf.xml
 
+# Add yank555.lu kernel config file
+PRODUCT_COPY_FILES += \
+    device/motorola/shamu/init.yank555.lu.kernel.sh:system/etc/init.yank555.lu.kernel.sh
+
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # This device is 560dpi.  However the platform doesn't
