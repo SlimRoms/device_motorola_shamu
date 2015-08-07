@@ -156,3 +156,6 @@
 
 /system/bin/imsdatadaemon                       u:object_r:ims_exec:s0
 /system/bin/imsqmidaemon                        u:object_r:ims_exec:s0
+
+# Yank555.lu - add private shell for kernel config
+/sbin/yksh u:object_r:rootfs:s0

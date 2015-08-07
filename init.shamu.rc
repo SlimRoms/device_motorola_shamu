@@ -105,6 +105,10 @@ on post-fs-data
     # rild files
     mkdir /data/misc/audio_cutback 0770 radio audio
 
+    # yank555.lu kernel config permissions
+    chmod 0700 /res/sbin/sh
+    chmod 0700 /system/etc/init.yank555.lu.kernel.sh
+
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -252,6 +256,9 @@ on boot
     chmod 0644 /proc/cmdline
 
     # LED permissions
+    chown system system /sys/class/leds/charging/brightness
+    chown system system /sys/class/leds/charging/max_brightness
+    chmod 664 /sys/class/leds/charging/brightness
     chmod 664 /sys/class/leds/red/brightness
     chmod 664 /sys/class/leds/green/brightness
     chmod 664 /sys/class/leds/blue/brightness
@@ -621,3 +628,10 @@ service atfwd /system/bin/ATFWD-daemon
     class late_start
     user system
     group system radio
+
+# Start yank555.lu kernel configuration
+service yank555-kernel /sbin/yksh /system/etc/init.yank555.lu.kernel.sh
+     class late_start
+     user root
+     group root
+     oneshot
