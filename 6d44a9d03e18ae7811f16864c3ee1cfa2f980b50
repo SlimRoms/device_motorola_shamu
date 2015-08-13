@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a51691d_95a68e52",
+        "filename": "cmhw/org/cyanogenmod/hardware/TapToWake.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2015-08-13T21:07:26Z",
+      "side": 1,
+      "message": "try {\n    return \"AUTO\".equals(FileUtils.readOneLine(CONTROL_PATH));\n} catch (FileNotFoundException e) {\n    return false;\n}",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 66
+      },
+      "revId": "6d44a9d03e18ae7811f16864c3ee1cfa2f980b50",
+      "serverId": "f8201d64-d729-4630-b91d-5f8be02869f0",
+      "unresolved": false
+    }
+  ]
+}
