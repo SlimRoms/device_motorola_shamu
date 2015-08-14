@@ -163,9 +163,9 @@ echo "243" > /sys/devices/platform/kcal_ctrl.0/kcal_sat
 echo "255" > /sys/devices/platform/kcal_ctrl.0/kcal_cont
 echo "1515" > /sys/devices/platform/kcal_ctrl.0/kcal_hue
 echo "250" > /sys/devices/platform/kcal_ctrl.0/kcal_val
-echo 1 > /sys/devices/platform/kcal_ctrl.0/kcal_ctrl
-
+echo 1 > /sys/devices/platform/kcal_ctrl.0/kcal_enable
 echo `date +"%F %R:%S : Color calibration set to "reference" 6500k (RGB=250,250,255/SAT=243/CONT=255/HUE=1515/GAMMA=250)."` >>$log_file
+
 # - zSwap activation - 1024Mb
 if [ -e /sys/block/vnswap0/disksize ] ; then
 
