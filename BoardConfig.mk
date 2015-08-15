@@ -181,4 +181,7 @@ BOARD_USES_QC_TIME_SERVICES := true
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
+# CMHW
+BOARD_HARDWARE_CLASS := device/motorola/shamu/cmhw
+
 -include vendor/motorola/shamu/BoardConfigVendor.mk
