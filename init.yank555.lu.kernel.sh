@@ -140,10 +140,11 @@ echo `date +"%F %R:%S : IntelliThermal Core Throttle limit set to 85 degrees."` 
 echo 80 > /sys/vibrator/pwmvalue
 echo `date +"%F %R:%S : Vibrator strength set to normal (80)."` >>$log_file
 
+# This is now an option in the ROM under Display settings
 # - Enable d2tw
-echo AUTO > /sys/bus/i2c/devices/1-004a/tsp
+#echo AUTO > /sys/bus/i2c/devices/1-004a/tsp
 #chmod 444 /sys/bus/i2c/devices/1-004a/tsp
-echo `date +"%F %R:%S : Double-tap to wake enabled and userspace access locked down."` >>$log_file
+#echo `date +"%F %R:%S : Double-tap to wake enabled and userspace access locked down."` >>$log_file
 
 # Wait for everything to become ready
 echo `date +"%F %R:%S : Waiting 60 seconds..."` >>$log_file
