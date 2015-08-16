@@ -64,8 +64,8 @@ echo 2649600 > /sys/kernel/cpufreq_hardlimit/scaling_max_freq_screen_on
 echo `date +"%F %R:%S : CPU max. screen on frequency hardlimit set to 2.65GHz."` >>$log_file
 
 # Set CPU max. screen off frequency hardlimit
-echo 1497600 > /sys/kernel/cpufreq_hardlimit/scaling_max_freq_screen_off
-echo `date +"%F %R:%S : CPU max. screen off frequency hardlimit set to 1.50GHz."` >>$log_file
+echo 2649600 > /sys/kernel/cpufreq_hardlimit/scaling_max_freq_screen_off
+echo `date +"%F %R:%S : CPU max. screen off frequency hardlimit set to 2.65GHz."` >>$log_file
 
 # Set CPU min. wakeup kick frequency
 echo 1958400 > /sys/kernel/cpufreq_hardlimit/wakeup_kick_freq
@@ -130,11 +130,11 @@ echo `date +"%F %R:%S : CPU Thermal driver set to IntelliThermal."` >>$log_file
 
 # Set CPU Thermal driver
 echo 80 > /sys/module/msm_thermal/parameters/limit_temp_degC
-echo `date +"%F %R:%S : IntelliThermal Frequency Throttle limit set to 80 degrees."` >>$log_file
+echo `date +"%F %R:%S : IntelliThermal Frequency Throttle limit set to 80 degrees celcius."` >>$log_file
 
 # Set CPU Thermal driver
 echo 85 > /sys/module/msm_thermal/parameters/core_limit_temp_degC
-echo `date +"%F %R:%S : IntelliThermal Core Throttle limit set to 85 degrees."` >>$log_file
+echo `date +"%F %R:%S : IntelliThermal Core Throttle limit set to 85 degrees celcius."` >>$log_file
 
 # - Vibrator strength
 echo 80 > /sys/vibrator/pwmvalue
@@ -189,10 +189,6 @@ echo `date +"%F %R:%S : Swappiness set to 80."` >>$log_file
 echo "msm-adreno-tz" > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/governor
 echo `date +"%F %R:%S : GPU governor set to msm-adreno-tz."` >>$log_file
 
-# Set GPU max freq to 600MHz
-echo 600000000 > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/max_freq
-echo `date +"%F %R:%S : GPU max. freq. set to 600MHz."` >>$log_file
-
 # Set Simple GPU algorithm (faux123)
 echo 1 > /sys/module/simple_gpu_algorithm/parameters/simple_gpu_activate
 echo `date +"%F %R:%S : Simple GPU algorithm set to enabled."` >>$log_file
@@ -204,6 +200,10 @@ echo `date +"%F %R:%S : Simple GPU algorithm laziness set to 0."` >>$log_file
 # Set Simple GPU algorithm ramp down threshold (faux123)
 echo 0 > /sys/module/simple_gpu_algorithm/parameters/simple_ramp_threshold
 echo `date +"%F %R:%S : Simple GPU algorithm ramp down threshold set to 0."` >>$log_file
+
+# Set GPU max freq to 600MHz
+echo 600000000 > /sys/devices/fdb00000.qcom,kgsl-3d0/devfreq/fdb00000.qcom,kgsl-3d0/max_freq
+echo `date +"%F %R:%S : GPU max. freq. set to 600MHz."` >>$log_file
 
 echo `date +"%F %R:%S : Finished kernel configuration."` >>$log_file
 
