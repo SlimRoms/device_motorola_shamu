@@ -136,9 +136,10 @@ echo `date +"%F %R:%S : IntelliThermal Frequency Throttle limit set to 80 degree
 echo 85 > /sys/module/msm_thermal/parameters/core_limit_temp_degC
 echo `date +"%F %R:%S : IntelliThermal Core Throttle limit set to 85 degrees celcius."` >>$log_file
 
+# This is now an option in the ROM under Other Sounds settings
 # - Vibrator strength
-echo 80 > /sys/vibrator/pwmvalue
-echo `date +"%F %R:%S : Vibrator strength set to normal (80)."` >>$log_file
+#echo 80 > /sys/vibrator/pwmvalue
+#echo `date +"%F %R:%S : Vibrator strength set to normal (80)."` >>$log_file
 
 # This is now an option in the ROM under Display settings
 # - Enable d2tw
