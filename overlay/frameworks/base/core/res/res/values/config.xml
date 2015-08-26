@@ -357,4 +357,7 @@
     -->
     <bool name="config_enableWifiDisplay">true</bool>
 
+    <!-- Whether to boost cpu on wake to prevent jank -->
+    <bool name="config_cpuBoostOnWake">true</bool>
+
 </resources>
