@@ -43,6 +43,9 @@ on boot
     chown system system /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
 
+    # disable bcl
+    write /sys/devices/qcom,bcl.39/mode disabled
+
 on property:dev.bootcomplete=1
     write /sys/module/lpm_levels/enable_low_power/l2 4
     write /sys/module/msm_pm/modes/cpu0/power_collapse/suspend_enabled 1
