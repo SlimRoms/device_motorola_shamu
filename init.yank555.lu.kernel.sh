@@ -11,6 +11,16 @@ echo "----------------------------------------------------" >>$log_file
 echo "Kernel version : `uname -a`" >>$log_file
 echo "Busybox used   : `which busybox`" >>$log_file
 
+echo `date +"%F %R:%S : Checking for Yank555.lu kernel..."` >>$log_file
+
+if [ "`uname -r | grep Yank555.lu`" == "" ]
+  then
+    echo `date +"%F %R:%S : No Yank555.lu kernel found, skip executing the config file"` >>$log_file
+    exit
+fi;
+
+echo `date +"%F %R:%S : Yank555.lu kernel found, continue executing the config file..."` >>$log_file
+
 echo `date +"%F %R:%S : Waiting for Android to start..."` >>$log_file
 
 # Wait until we see some android processes to consider boot is more or less complete (credits to AndiP71)
