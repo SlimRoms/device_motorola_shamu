@@ -284,33 +284,6 @@ on boot
     chmod 664 /sys/class/leds/green/brightness
     chmod 664 /sys/class/leds/blue/brightness
 
-    # Enable intelli-plug for boot
-    write /sys/module/intelli_plug/parameters/intelli_plug_active 1
-    write /sys/module/intelli_plug/parameters/touch_boost_active 0
-    write /sys/module/intelli_plug/parameters/nr_run_profile_sel 2
-    write /sys/module/intelli_plug/parameters/nr_run_hysteresis 8
-    write /sys/module/intelli_plug/parameters/cpu_nr_run_threshold 1000
-
-    # Enable intelli-thermal for boot
-    write /sys/module/msm_thermal/parameters/enabled 1
-    write /sys/module/msm_thermal/parameters/core_control_mask 12
-    write /sys/module/msm_thermal/parameters/freq_control_mask 15
-    write /sys/module/msm_thermal/parameters/limit_temp_degC 80
-    write /sys/module/msm_thermal/parameters/core_limit_temp_degC 85
-
-    # Configure cpufreq_hardlimit driver
-    write /sys/kernel/cpufreq_hardlimit/userspace_dvfs_lock 1
-    write /sys/kernel/cpufreq_hardlimit/scaling_min_freq_screen_on 300000
-    write /sys/kernel/cpufreq_hardlimit/scaling_min_freq_screen_off 300000
-    write /sys/kernel/cpufreq_hardlimit/scaling_max_freq_screen_on 2265600
-    write /sys/kernel/cpufreq_hardlimit/scaling_max_freq_screen_off 1497600
-    write /sys/kernel/cpufreq_hardlimit/wakeup_kick_freq 1958400
-    write /sys/kernel/cpufreq_hardlimit/wakeup_kick_delay 2000
-    write /sys/kernel/cpufreq_hardlimit/touchboost_delay 750
-    write /sys/kernel/cpufreq_hardlimit/touchboost_eventcount 3
-    write /sys/kernel/cpufreq_hardlimit/touchboost_lo_freq 883200
-    write /sys/kernel/cpufreq_hardlimit/touchboost_hi_freq 1267200
-
 # subsystem ramdump collection
 on property:persist.sys.qc.sub.rdump.on=*
     write /sys/module/subsystem_restart/parameters/enable_ramdumps ${persist.sys.qc.sub.rdump.on}
@@ -577,32 +550,7 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 /mnt/media_rw/usbdisk /s
 on charger
     write /sys/class/leds/lcd-backlight/brightness 100
     mount ext4 /dev/block/platform/msm_sdcc.1/by-name/system /system ro barrier=1
-    # We use in-kernel hotplugging & thermal management
-    #start thermal-engine
-    # Enable intelli-plug for boot
-    write /sys/module/intelli_plug/parameters/intelli_plug_active 1
-    write /sys/module/intelli_plug/parameters/touch_boost_active 0
-    write /sys/module/intelli_plug/parameters/nr_run_profile_sel 2
-    write /sys/module/intelli_plug/parameters/nr_run_hysteresis 8
-    write /sys/module/intelli_plug/parameters/cpu_nr_run_threshold 1000
-    # Enable intelli-thermal for boot
-    write /sys/module/msm_thermal/parameters/enabled 1
-    write /sys/module/msm_thermal/parameters/core_control_mask 12
-    write /sys/module/msm_thermal/parameters/freq_control_mask 15
-    write /sys/module/msm_thermal/parameters/limit_temp_degC 80
-    write /sys/module/msm_thermal/parameters/core_limit_temp_degC 85
-    # Configure cpufreq_hardlimit driver
-    write /sys/kernel/cpufreq_hardlimit/userspace_dvfs_lock 1
-    write /sys/kernel/cpufreq_hardlimit/scaling_min_freq_screen_on 300000
-    write /sys/kernel/cpufreq_hardlimit/scaling_min_freq_screen_off 300000
-    write /sys/kernel/cpufreq_hardlimit/scaling_max_freq_screen_on 2265600
-    write /sys/kernel/cpufreq_hardlimit/scaling_max_freq_screen_off 1497600
-    write /sys/kernel/cpufreq_hardlimit/wakeup_kick_freq 1958400
-    write /sys/kernel/cpufreq_hardlimit/wakeup_kick_delay 2000
-    write /sys/kernel/cpufreq_hardlimit/touchboost_delay 750
-    write /sys/kernel/cpufreq_hardlimit/touchboost_eventcount 3
-    write /sys/kernel/cpufreq_hardlimit/touchboost_lo_freq 883200
-    write /sys/kernel/cpufreq_hardlimit/touchboost_hi_freq 1267200
+    start thermal-engine
 
 service charger /charger
     class charger
@@ -624,7 +572,6 @@ service qseecomd /system/bin/qseecomd
 service mpdecision /system/bin/mpdecision --avg_comp
    class main
    user root
-   disabled
 
 service ss_ramdump /system/bin/subsystem_ramdump
     class main
@@ -636,7 +583,6 @@ service thermal-engine /system/bin/thermal-engine
    class main
    user root
    group root
-   disabled
 
 service time_daemon /system/bin/time_daemon
    class late_start
