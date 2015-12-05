@@ -289,6 +289,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.fsg_reload_on=1 \
     persist.radio.mcfg_enabled=1
 
+# Store correct IMSI when retreived from SIMRecords and use it for RuimRecords
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.get_imsi_from_sim=true
+
 # Camera configuration
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     camera.disable_zsl_mode=0
