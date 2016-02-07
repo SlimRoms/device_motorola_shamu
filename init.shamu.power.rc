@@ -42,7 +42,6 @@ on boot
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
     chown system system /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
-
     # disable bcl
     write /sys/devices/qcom,bcl.39/mode disabled
 
@@ -105,8 +104,8 @@ on property:dev.bootcomplete=1
     write /sys/kernel/cpufreq_hardlimit/wakeup_kick_delay "3000"
     write /sys/kernel/cpufreq_hardlimit/touchboost_delay "1000"
     write /sys/kernel/cpufreq_hardlimit/touchboost_eventcount "4"
-    write /sys/kernel/cpufreq_hardlimit/touchboost_lo_freq "1190400"
-    write /sys/kernel/cpufreq_hardlimit/touchboost_hi_freq "1497600"
+    write /sys/kernel/cpufreq_hardlimit/touchboost_lo_freq "883200"
+    write /sys/kernel/cpufreq_hardlimit/touchboost_hi_freq "1267200"
 
     # - Setup CPU governor
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "yankactive"
@@ -162,5 +161,3 @@ on property:dev.bootcomplete=1
 
     # Activate swap
     exec - root system -- /system/xbin/swapon.sh
-
-    # Configure Yank555.lu kernel ---- End

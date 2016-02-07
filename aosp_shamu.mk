@@ -32,7 +32,7 @@ PRODUCT_MANUFACTURER := motorola
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
 $(call inherit-product, device/motorola/shamu/device.mk)
-$(call inherit-product, vendor/motorola/shamu/shamu-vendor.mk)
+$(call inherit-product, vendor/motorola/shamu/device-vendor.mk)
 
 PRODUCT_NAME := aosp_shamu
 
