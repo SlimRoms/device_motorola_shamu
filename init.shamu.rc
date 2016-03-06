@@ -630,3 +630,11 @@ service atfwd /system/bin/ATFWD-daemon
 service cnd /system/bin/cnd
     class late_start
     socket cnd stream 660 root inet
+    start diag_test_server
+
+# Execute init.d scripts
+service sysinit /system/bin/logwrapper /system/xbin/busybox run-parts /system/etc/init.d
+    class late_start
+    user root
+    group shell
+    oneshot
