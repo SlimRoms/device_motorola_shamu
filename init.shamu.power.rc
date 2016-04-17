@@ -161,3 +161,4 @@ on property:dev.bootcomplete=1
 
     # Activate swap
     exec - root system -- /system/xbin/swapon.sh
+    

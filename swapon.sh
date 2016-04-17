@@ -2,7 +2,6 @@
 #------------------------------------
 # Yank555.lu - activate swap on shamu
 #------------------------------------
-
 # - zSwap activation - 1024Mb
 if [ -e /sys/block/vnswap0/disksize ] ; then
 
