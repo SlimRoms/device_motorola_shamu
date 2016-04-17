@@ -100,6 +100,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/motorola/shamu/spn-conf.xml:system/etc/spn-conf.xml
 
+# Add swap activation script (workaround for the time being)
+PRODUCT_COPY_FILES += \
+    device/motorola/shamu/swapon.sh:system/xbin/swapon.sh
+
 # This device is 560dpi.  However the platform doesn't
 # currently contain all of the bitmaps at 560dpi density so
 # we do this little trick to fall back to the xxhdpi version
