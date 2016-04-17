@@ -19,15 +19,6 @@
 #
 # Everything in this directory will become public
 
-#ifeq ($(TARGET_PREBUILT_KERNEL),)
-#LOCAL_KERNEL := device/motorola/shamu-kernel/zImage-dtb
-#else
-#LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-#endif
-
-#PRODUCT_COPY_FILES := \
-#    $(LOCAL_KERNEL):kernel
-
 PRODUCT_COPY_FILES += \
     device/motorola/shamu/init.shamu.rc:root/init.shamu.rc \
     device/motorola/shamu/init.shamu.power.rc:root/init.shamu.power.rc \

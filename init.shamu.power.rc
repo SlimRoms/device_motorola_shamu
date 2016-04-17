@@ -82,3 +82,29 @@ on property:dev.bootcomplete=1
     write /sys/module/cpu_boost/parameters/input_boost_freq 1497600
     write /sys/module/cpu_boost/parameters/input_boost_ms 40
     write /dev/cpuctl/apps/cpu.notify_on_migrate 0
+
+    # - Configure IntelliThermal
+    stop thermal-engine
+    write /sys/module/msm_thermal/parameters/enabled "1"
+    write /sys/module/msm_thermal/parameters/core_control_mask "12"
+    write /sys/module/msm_thermal/parameters/freq_control_mask "15"
+    write /sys/module/msm_thermal/parameters/limit_temp_degC "70"
+    write /sys/module/msm_thermal/parameters/core_limit_temp_degC "75"
+
+    # - Set Vibrator strength
+    write /sys/vibrator/pwmvalue 80
+
+    # - Set 6500K color calibration
+    write /sys/devices/platform/kcal_ctrl.0/kcal "250 250 255"
+    write /sys/devices/platform/kcal_ctrl.0/kcal_sat "243"
+    write /sys/devices/platform/kcal_ctrl.0/kcal_cont "255"
+    write /sys/devices/platform/kcal_ctrl.0/kcal_hue "1515"
+    write /sys/devices/platform/kcal_ctrl.0/kcal_val "250"
+    write /sys/devices/platform/kcal_ctrl.0/kcal_ctrl "1"
+
+    # Switch to fiops scheduler and increase readahead buffer to 1024Kb
+    write /sys/block/mmcblk0/queue/scheduler fiops
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 1024
+
+    # Activate swap
+    exec - root system -- /system/xbin/swapon.sh
