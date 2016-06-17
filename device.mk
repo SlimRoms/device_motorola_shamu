@@ -203,6 +203,7 @@ PRODUCT_PACKAGES += \
     keystore.msm8084
 
 PRODUCT_PACKAGES += \
+    librmnetctl \
     libxml2
 
 PRODUCT_PROPERTY_OVERRIDES += \
