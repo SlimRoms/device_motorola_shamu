@@ -105,8 +105,8 @@ on property:dev.bootcomplete=1
     write /sys/kernel/cpufreq_hardlimit/wakeup_kick_delay "3000"
     write /sys/kernel/cpufreq_hardlimit/touchboost_delay "1000"
     write /sys/kernel/cpufreq_hardlimit/touchboost_eventcount "4"
-    write /sys/kernel/cpufreq_hardlimit/touchboost_lo_freq "883200"
-    write /sys/kernel/cpufreq_hardlimit/touchboost_hi_freq "1267200"
+    write /sys/kernel/cpufreq_hardlimit/touchboost_lo_freq "1190400"
+    write /sys/kernel/cpufreq_hardlimit/touchboost_hi_freq "1497600"
 
     # - Setup CPU governor
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "yankactive"
