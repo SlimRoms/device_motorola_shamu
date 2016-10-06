@@ -402,7 +402,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Set missing telephony props
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.radio.sib16_support=1
+    persist.radio.sib16_support=1 \
+    ro.com.android.prov_mobiledata=false
 
 # data qmi adb logmask
 PRODUCT_PROPERTY_OVERRIDES += \
