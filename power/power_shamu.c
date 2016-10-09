@@ -147,7 +147,7 @@ static void process_video_encode_hint(void *metadata)
     }
 }
 
-
+/*
 static void touch_boost()
 {
     int rc, fd;
@@ -169,7 +169,7 @@ static void touch_boost()
         ALOGE("%s: failed to send: %s", __func__, strerror(errno));
     }
 }
-
+*/
 static void low_power(int on)
 {
     int rc;
@@ -223,7 +223,7 @@ static void power_set_interactive(__attribute__((unused)) struct power_module *m
     ALOGV("%s %s", __func__, (on ? "ON" : "OFF"));
     if (on) {
         coresonline(0);
-        touch_boost();
+//        touch_boost();
     } else {
         coresonline(1);
     }
@@ -235,8 +235,8 @@ static void power_hint( __attribute__((unused)) struct power_module *module,
 {
     switch (hint) {
         case POWER_HINT_INTERACTION:
-            ALOGV("POWER_HINT_INTERACTION");
-            touch_boost();
+//            ALOGV("POWER_HINT_INTERACTION");
+//            touch_boost();
             break;
 #if 0
         case POWER_HINT_VSYNC:
