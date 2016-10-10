@@ -31,6 +31,9 @@ PRODUCT_MODEL := Nexus 6
 PRODUCT_MANUFACTURER := motorola
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
+# Include YAOSP telephony configuration
+include vendor/yaosp/configs/yaosp_phone.mk
+
 $(call inherit-product, device/moto/shamu/device.mk)
 $(call inherit-product, vendor/moto/shamu/device-vendor.mk)
 
