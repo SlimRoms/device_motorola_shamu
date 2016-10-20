@@ -32,10 +32,10 @@ PRODUCT_MANUFACTURER := motorola
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
 # Include YAOSP telephony configuration
-include vendor/yaosp/configs/yaosp_phone.mk
+include vendor/slim/config/common_full_phone.mk
 
-$(call inherit-product, device/moto/shamu/device.mk)
-$(call inherit-product, vendor/moto/shamu/device-vendor.mk)
+$(call inherit-product, device/motorola/shamu/device.mk)
+$(call inherit-product, vendor/motorola/shamu/shamu-vendor.mk)
 
 PRODUCT_NAME := aosp_shamu
 
