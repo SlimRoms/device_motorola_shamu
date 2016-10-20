@@ -8,6 +8,9 @@ TARGET_SCREEN_WIDTH := 1440
 # Inherit some common Slim stuff.
 $(call inherit-product, vendor/slim/config/common_full_phone.mk)
 
+# Enhanced NFC
+$(call inherit-product, vendor/slim/config/nfc_enhanced.mk)
+
 # Inherit device configuration
 $(call inherit-product, device/motorola/shamu/aosp_shamu.mk)
 
@@ -23,4 +26,3 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME=shamu \
     BUILD_FINGERPRINT=google/shamu/shamu:7.0/MOB31E/3142026:user/release-keys \
     PRIVATE_BUILD_DESC="shamu-user 7.0 MOB31E 3142026 release-keys"
-
