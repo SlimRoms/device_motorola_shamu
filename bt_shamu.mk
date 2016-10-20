@@ -14,11 +14,11 @@
 # limitations under the License.
 #
 
-$(call inherit-product, device/moto/shamu/aosp_shamu.mk)
+$(call inherit-product, device/motorola/shamu/aosp_shamu.mk)
 
 # Add overlay to enable extra Bluetooth profiles
 DEVICE_PACKAGE_OVERLAYS += \
-    device/moto/shamu/overlay_bt
+    device/motorola/shamu/overlay_bt
 
 PRODUCT_NAME := bt_shamu
 PRODUCT_DEVICE := shamu
