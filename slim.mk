@@ -23,4 +23,3 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME=shamu \
     BUILD_FINGERPRINT=google/shamu/shamu:7.0/MOB31E/3142026:user/release-keys \
     PRIVATE_BUILD_DESC="shamu-user 7.0 MOB31E 3142026 release-keys"
-
