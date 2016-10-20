@@ -27,18 +27,17 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 PRODUCT_NAME := aosp_shamu
 PRODUCT_DEVICE := shamu
 PRODUCT_BRAND := Android
-PRODUCT_MODEL := Nexus 6
+PRODUCT_MODEL := AOSP on Shamu
 PRODUCT_MANUFACTURER := motorola
-PRODUCT_RESTRICT_VENDOR_FILES := false
+PRODUCT_RESTRICT_VENDOR_FILES := true
 
 # Include YAOSP telephony configuration
-include vendor/yaosp/configs/yaosp_phone.mk
+include vendor/slim/config/common_full_phone.mk
 
-$(call inherit-product, device/moto/shamu/device.mk)
-$(call inherit-product, vendor/moto/shamu/device-vendor.mk)
+$(call inherit-product, device/motorola/shamu/device.mk)
+$(call inherit-product, vendor/motorola/shamu/shamu-vendor.mk)
 
 PRODUCT_NAME := aosp_shamu
 
 PRODUCT_PACKAGES += \
     Launcher3
-
