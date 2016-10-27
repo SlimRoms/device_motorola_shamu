@@ -73,9 +73,9 @@ LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 
 #LOCAL_STATIC_LIBRARIES := libqcamera2_util
 LOCAL_C_INCLUDES += \
-        $(call project-path-for,qcom-display)/libgralloc
+        $(call project-path-for,qcom-display)/msm8974/libgralloc
 LOCAL_C_INCLUDES += \
-        $(call project-path-for,qcom-display)/libqdutils
+        $(call project-path-for,qcom-display)/msm8974/libqdutils
 
 LOCAL_SHARED_LIBRARIES := libcamera_client liblog libhardware libutils libcutils libdl libsync
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface libmmjpeg_interface libui libcamera_metadata

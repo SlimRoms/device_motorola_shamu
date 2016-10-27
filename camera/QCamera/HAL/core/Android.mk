@@ -105,8 +105,8 @@ LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/media
 LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
-LOCAL_C_INCLUDES += $(call project-path-for,qcom-display)/libgralloc \
-        $(call project-path-for,qcom-display)/libgenlock \
+LOCAL_C_INCLUDES += $(call project-path-for,qcom-display)/msm8974/libgralloc \
+        $(call project-path-for,qcom-display)/msm8974/libgenlock \
         $(call project-path-for,qcom-media)/msm8974/libstagefrighthw
 
 # if debug service layer and up , use stub camera!
