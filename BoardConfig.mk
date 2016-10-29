@@ -24,7 +24,7 @@ ENABLE_CPUSETS := true
 
 TARGET_NO_BOOTLOADER := true
 
-TARGET_KERNEL_CONFIG := shamu_defconfig
+TARGET_KERNEL_CONFIG := slim_shamu_defconfig
 TARGET_KERNEL_SOURCE := kernel/motorola/shamu
 # Build with default toolchain
 KERNEL_TOOLCHAIN := "$(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-linux-androideabi-4.9/bin"
