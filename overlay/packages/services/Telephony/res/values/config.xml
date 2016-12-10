@@ -27,4 +27,7 @@
     <bool name="hac_enabled">true</bool>
     <!-- Allows the telephony HFA logic to run even if we're not in setup wizard. -->
     <bool name="config_allow_hfa_outside_of_setup_wizard">false</bool>
+
+    <!-- Flag to enable VVM3 visual voicemail. VVM3 is used by Verizon Wireless. -->
+    <bool name="vvm3_enabled">true</bool>
 </resources>
