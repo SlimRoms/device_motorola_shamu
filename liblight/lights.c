@@ -27,6 +27,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <pthread.h>
+#include <malloc.h>
 
 #include <sys/ioctl.h>
 #include <sys/types.h>
@@ -38,6 +39,10 @@
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
+/**
+ * for now we are only interested in
+ * battery and notification events
+ */
 static struct light_state_t g_notification;
 static struct light_state_t g_battery;
 
@@ -52,6 +57,13 @@ char const*const BLUE_LED_FILE
 
 char const*const LCD_FILE
         = "/sys/class/leds/lcd-backlight/brightness";
+
+enum {
+  LED_RED = 1,
+  LED_GREEN = 2,
+  LED_BLUE = 3,
+  LED_BLANK = 0
+};
 
 /**
  * device methods
@@ -94,6 +106,38 @@ is_lit(struct light_state_t const* state)
     return state->color & 0x00ffffff;
 }
 
+/**
+ * battery can only occupy one color at a time
+ * this leaves the two other colors open for
+ * notifications while charging
+ */
+static int
+get_battery_color(struct light_state_t const* state)
+{
+  unsigned int colorRGB = state->color & 0xFFFFFF;
+
+  // the highest valued shade is always
+  // our battery color
+  int red = (colorRGB >> 16) & 0xFF;
+  int green = (colorRGB >> 8) & 0xFF;
+  int blue = colorRGB & 0xFF;
+  int color = 0;
+  int ret = LED_BLANK;
+
+  if(red > green) {
+    color = red;
+    ret = LED_RED;
+  } else {
+    color = green;
+    ret = LED_GREEN;
+  }
+  if(blue > color) {
+    ret = LED_BLUE;
+  }
+  return ret;
+}
+
+
 static int
 rgb_to_brightness(struct light_state_t const* state)
 {
@@ -117,47 +161,107 @@ set_light_backlight(struct light_device_t* dev,
     return err;
 }
 
-/**
- * There is a sperate gpio per led. Each with a maximum brightness of 20.
- * The normal rgb values are computed on a scale up to 255 so we divide them
- * by 12.75 so that varied brightness per led is spread out evenly per color.
- * The led is only optimal on absolute red, green or blue, and produces artifacts
- * of two different colors appearing at once when more than one is active, but
- * this is very limiting so ultimately we allow the end user full control.
- **/
-static int
-set_speaker_light_locked(struct light_device_t* dev,
-        struct light_state_t const* state)
+static void
+set_speaker_light_locked_notification(struct light_device_t* dev,
+        struct light_state_t const* bstate, struct light_state_t const* nstate)
 {
-    unsigned int colorRGB = state->color;
-    int red = 0;
-    int green = 0;
-    int blue = 0;
+  unsigned int colorRGB = nstate->color & 0xFFFFFF;
+  int red = LED_BLANK;
+  int green = LED_BLANK;
+  int blue = LED_BLANK;
 
-    red = (((colorRGB >> 16) & 0xFF) / 12.75);
-    green = (((colorRGB >> 8) & 0xFF) / 12.75);
-    blue = ((colorRGB & 0xFF) / 12.75);
+  if ((colorRGB >> 16) & 0xFF) red = LED_RED;
+  if ((colorRGB >> 8) & 0xFF) green = LED_GREEN;
+  if (colorRGB & 0xFF) blue = LED_BLUE;
 
-    write_int(RED_LED_FILE, red);
-    write_int(GREEN_LED_FILE, green);
-    write_int(BLUE_LED_FILE, blue);
-
-#if 0
-    ALOGD("set_speaker_light_locked colorRGB=%08X, red=%d, green=%d, blue=%d\n",
-            colorRGB, red, green, blue);
-#endif
-
-    return 0;
+  // notification came in and battery light is off
+  // free to write all values
+  if (!is_lit(bstate)) {
+    write_int (RED_LED_FILE, red);
+    write_int (GREEN_LED_FILE, green);
+    write_int (BLUE_LED_FILE, blue);
+  } else {
+    // battery light is active. Be careful not 
+    // to turn it off
+    int bcolor = get_battery_color(bstate);
+    if (bcolor != LED_RED) {
+      write_int (RED_LED_FILE, red);
+    }
+    if (bcolor != LED_GREEN) {
+      write_int (GREEN_LED_FILE, green);
+    }    
+    if (bcolor != LED_BLUE) {
+      write_int (BLUE_LED_FILE, blue);
+    }
+  }
 }
 
 static void
-handle_speaker_battery_locked(struct light_device_t* dev)
+set_speaker_light_locked_battery(struct light_device_t* dev,
+        struct light_state_t const* bstate, struct light_state_t const* nstate)
 {
-    if (is_lit(&g_notification)) {
-        set_speaker_light_locked(dev, &g_notification);
-    } else {
-        set_speaker_light_locked(dev, &g_battery);
-    }
+  int bcolor = LED_BLANK;
+  int n_red = LED_BLANK;
+  int n_green = LED_BLANK;
+  int n_blue = LED_BLANK;
+
+  unsigned int n_colorRGB = nstate->color & 0xFFFFFF;
+
+  if ((n_colorRGB >> 16) & 0xFF) n_red = LED_RED;
+  if ((n_colorRGB >> 8) & 0xFF) n_green = LED_GREEN;
+  if (n_colorRGB & 0xFF) n_blue = LED_BLUE;
+
+  // a battery event came in and battery light is visible
+  // we must be careful as it is possible to change from one
+  // visible battery state to another. so we write the visible
+  // color and clear remaining lights if they are not in use
+  // from a notification
+  if (is_lit(bstate)) {
+    bcolor = get_battery_color(bstate);
+      switch (bcolor) {
+        case LED_RED:
+          write_int (RED_LED_FILE, LED_RED);
+          if(n_green == LED_BLANK) {
+            write_int (GREEN_LED_FILE, LED_BLANK);
+          }
+          if(n_blue == LED_BLANK) {
+            write_int (BLUE_LED_FILE, LED_BLANK);
+          }
+          break;
+        case LED_GREEN:
+          write_int (GREEN_LED_FILE, LED_GREEN);
+          if(n_blue == LED_BLANK) {
+            write_int (BLUE_LED_FILE, LED_BLANK);
+          }
+          if(n_red == LED_BLANK) {
+            write_int (RED_LED_FILE, LED_BLANK);
+          }
+          break;
+        case LED_BLUE:
+          write_int (BLUE_LED_FILE, LED_BLUE);
+          if(n_red == LED_BLANK) {
+            write_int (RED_LED_FILE, LED_BLANK);
+          }
+          if(n_green == LED_BLANK) {
+            write_int (GREEN_LED_FILE, LED_BLANK);
+          }
+          break;
+        default:
+          ALOGE("set_led_state (dual) unexpected color: bcolorRGB=%08x\n", bcolor);
+      }
+  } else {
+      // device is not charging. clear all states
+      // preserving any notification lights
+      if(n_red == LED_BLANK) {
+        write_int (RED_LED_FILE, LED_BLANK);
+      }
+      if(n_green == LED_BLANK) {
+        write_int (GREEN_LED_FILE, LED_BLANK);
+      }
+      if(n_blue == LED_BLANK) {
+        write_int (BLUE_LED_FILE, LED_BLANK);
+      }
+   }
 }
 
 static int
@@ -166,7 +270,7 @@ set_light_notifications(struct light_device_t* dev,
 {
     pthread_mutex_lock(&g_lock);
     g_notification = *state;
-    handle_speaker_battery_locked(dev);
+    set_speaker_light_locked_notification(dev, &g_battery, &g_notification);
     pthread_mutex_unlock(&g_lock);
     return 0;
 }
@@ -177,7 +281,7 @@ set_light_battery(struct light_device_t* dev,
 {
     pthread_mutex_lock(&g_lock);
     g_battery = *state;
-    handle_speaker_battery_locked(dev);
+    set_speaker_light_locked_battery(dev, &g_battery, &g_notification);
     pthread_mutex_unlock(&g_lock);
     return 0;
 }

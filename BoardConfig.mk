@@ -29,6 +29,7 @@ TARGET_KERNEL_SOURCE := kernel/motorola/shamu
 # Build with default toolchain
 KERNEL_TOOLCHAIN := "$(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-linux-androideabi-4.9/bin"
 KERNEL_TOOLCHAIN_PREFIX := arm-linux-androidkernel-
+
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 
 BOARD_KERNEL_BASE := 0x00000000

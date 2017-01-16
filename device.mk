@@ -161,6 +161,13 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     media.aac_51_output_enabled=true \
+#<<<<<<< HEAD
+#=======
+    persist.audio.dualmic.config=endfire \
+    persist.audio.fluence.voicecall=true \
+    persist.audio.fluence.voicerec=false \
+    persist.audio.fluence.speaker=false \
+#>>>>>>> ba068a75b5b2c58521abe4bf83a137172519d1c2
     ro.audio.monitorRotation=true
 
 # Audio effects
@@ -198,8 +205,8 @@ PRODUCT_PACKAGES += \
     charger_res_images
 
 # for launcher layout
-PRODUCT_PACKAGES += \
-    ShamuLayout
+#PRODUCT_PACKAGES += \
+#    ShamuLayout
 
 PRODUCT_PACKAGES += \
     bdAddrLoader
@@ -269,6 +276,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.get_imsi_from_sim=true
 
+# Allow tethering without provisioning app
+PRODUCT_PROPERTY_OVERRIDES += \
+    net.tethering.noprovisioning=true
+
 # Camera configuration
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     camera.disable_zsl_mode=0
@@ -321,8 +332,10 @@ PRODUCT_COPY_FILES += \
 
 # Modem debugger
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+ifeq (,$(filter aosp_shamu, $(TARGET_PRODUCT)))
 PRODUCT_PACKAGES += \
-    QXDMLogger
+    QXDMLoggerV2
+endif # aosp_shamu
 
 # Disable modem ramdumps
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -430,6 +443,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Low latency audio buffer size in frames
 PRODUCT_PROPERTY_OVERRIDES += \
     audio_hal.period_size=192
+
+# set default USB configuration
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    sys.usb.config=mtp,adb \
+    persist.sys.usb.config=mtp,adb \
+    ro.adb.secure=0
 
 # Set correct voice call audio property values
 PRODUCT_PROPERTY_OVERRIDES += \
