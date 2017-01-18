@@ -19,42 +19,31 @@
 #
 # Everything in this directory will become public
 
-
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/moto/shamu-kernel/zImage-dtb
-else
-LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
-
-PRODUCT_COPY_FILES := \
-    $(LOCAL_KERNEL):kernel
-
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/init.shamu.rc:root/init.shamu.rc \
-    device/moto/shamu/init.shamu.power.rc:root/init.shamu.power.rc \
-    device/moto/shamu/init.shamu.usb.rc:root/init.shamu.usb.rc \
-    device/moto/shamu/fstab.shamu:root/fstab.shamu \
-    device/moto/shamu/ueventd.shamu.rc:root/ueventd.shamu.rc
+    device/motorola/shamu/init.shamu.rc:root/init.shamu.rc \
+    device/motorola/shamu/init.shamu.power.rc:root/init.shamu.power.rc \
+    device/motorola/shamu/init.shamu.usb.rc:root/init.shamu.usb.rc \
+    device/motorola/shamu/fstab.shamu:root/fstab.shamu \
+    device/motorola/shamu/ueventd.shamu.rc:root/ueventd.shamu.rc
 
 # Input device files for shamu
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    device/moto/shamu/apq8084-taiko-tfa9890_stereo_co_Button_Jack.kl:system/usr/keylayout/apq8084-taiko-tfa9890_stereo_co_Button_Jack.kl \
-	device/moto/shamu/atmel_mxt_ts.idc:system/usr/idc/atmel_mxt_ts.idc
+    device/motorola/shamu/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    device/motorola/shamu/apq8084-taiko-tfa9890_stereo_co_Button_Jack.kl:system/usr/keylayout/apq8084-taiko-tfa9890_stereo_co_Button_Jack.kl \
+	device/motorola/shamu/atmel_mxt_ts.idc:system/usr/idc/atmel_mxt_ts.idc
 
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/audio_policy.conf:system/etc/audio_policy.conf \
-    device/moto/shamu/audio_effects.conf:system/etc/audio_effects.conf
+    device/motorola/shamu/audio_policy.conf:system/etc/audio_policy.conf \
+    device/motorola/shamu/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/media_profiles.xml:system/etc/media_profiles.xml \
-    device/moto/shamu/media_codecs.xml:system/etc/media_codecs.xml \
-    device/moto/shamu/media_codecs_performance.xml:system/etc/media_codecs_performance.xml
+    device/motorola/shamu/media_profiles.xml:system/etc/media_profiles.xml \
+    device/motorola/shamu/media_codecs.xml:system/etc/media_codecs.xml \
+    device/motorola/shamu/media_codecs_performance.xml:system/etc/media_codecs_performance.xml
 
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/mixer_paths.xml:system/etc/mixer_paths.xml \
-    device/moto/shamu/audio_platform_info.xml:system/etc/audio_platform_info.xml
+    device/motorola/shamu/mixer_paths.xml:system/etc/mixer_paths.xml \
+    device/motorola/shamu/audio_platform_info.xml:system/etc/audio_platform_info.xml
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
@@ -90,7 +79,7 @@ PRODUCT_COPY_FILES += \
 
 # For GPS
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/sec_config:system/etc/sec_config
+    device/motorola/shamu/sec_config:system/etc/sec_config
 
 # Touch firmware updater
 PRODUCT_COPY_FILES += \
@@ -101,15 +90,24 @@ $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4356
 
 # WiFi cal NVRAM file
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+    device/motorola/shamu/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
 # BT FW
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/bluetooth/BCM4356A2_001.003.015.0077.0214_ORC.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/bcm4354A2.hcd
+    device/motorola/shamu/bluetooth/BCM4356A2_001.003.015.0077.0214_ORC.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/bcm4354A2.hcd
 
 # For SPN display
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/spn-conf.xml:system/etc/spn-conf.xml
+    device/motorola/shamu/spn-conf.xml:system/etc/spn-conf.xml
+
+# Add swap activation script (workaround for the time being)
+PRODUCT_COPY_FILES += \
+    device/motorola/shamu/swapon.sh:system/xbin/swapon.sh
+
+# This device is 560dpi.  However the platform doesn't
+# currently contain all of the bitmaps at 560dpi density so
+# we do this little trick to fall back to the xxhdpi version
+# if the 560dpi doesn't exist.
 
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := 560dpi
@@ -119,7 +117,7 @@ PRODUCT_AAPT_PREBUILT_DPI := xxxhdpi xxhdpi xhdpi hdpi
 PRODUCT_CHARACTERISTICS := nosdcard
 
 DEVICE_PACKAGE_OVERLAYS := \
-    device/moto/shamu/overlay
+    device/motorola/shamu/overlay
 
 PRODUCT_PACKAGES := \
     libwpa_client \
@@ -162,6 +160,14 @@ PRODUCT_PACKAGES += \
     libaudio-resampler
 
 PRODUCT_PROPERTY_OVERRIDES += \
+    media.aac_51_output_enabled=true \
+#<<<<<<< HEAD
+#=======
+    persist.audio.dualmic.config=endfire \
+    persist.audio.fluence.voicecall=true \
+    persist.audio.fluence.voicerec=false \
+    persist.audio.fluence.speaker=false \
+#>>>>>>> ba068a75b5b2c58521abe4bf83a137172519d1c2
     ro.audio.monitorRotation=true
 
 # Audio effects
@@ -169,6 +175,12 @@ PRODUCT_PACKAGES += \
     libqcomvisualizer \
     libqcomvoiceprocessing \
     libqcomvoiceprocessingdescriptors
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    fmas.spkr_6ch=35,20,110 \
+    fmas.spkr_2ch=35,25 \
+    fmas.spkr_angles=10 \
+    fmas.spkr_sgain=0 \
 
 PRODUCT_PACKAGES += \
     libqomx_core \
@@ -193,14 +205,18 @@ PRODUCT_PACKAGES += \
     charger_res_images
 
 # for launcher layout
-PRODUCT_PACKAGES += \
-    ShamuLayout
+#PRODUCT_PACKAGES += \
+#    ShamuLayout
 
 PRODUCT_PACKAGES += \
     bdAddrLoader
 
 PRODUCT_PACKAGES += \
     keystore.msm8084
+
+PRODUCT_PACKAGES += \
+    librmnetctl \
+    libxml2
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196610
@@ -230,7 +246,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.ISP.debug.mask=0 \
     persist.camera.pproc.debug.mask=7 \
     persist.camera.stats.debug.mask=0 \
-    persit.camera.imglib.logs=1 \
+    persist.camera.imglib.logs=1 \
     persist.camera.mct.debug.mask=1 \
     persist.camera.sensor.debug=0 \
     vidc.debug.level=1
@@ -256,6 +272,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.fsg_reload_on=1 \
     persist.radio.mcfg_enabled=1
 
+# Store correct IMSI when retreived from SIMRecords and use it for RuimRecords
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.get_imsi_from_sim=true
+
+# Allow tethering without provisioning app
+PRODUCT_PROPERTY_OVERRIDES += \
+    net.tethering.noprovisioning=true
+
 # Camera configuration
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     camera.disable_zsl_mode=0
@@ -268,7 +292,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # GPS configuration
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/gps.conf:system/etc/gps.conf
+    device/motorola/shamu/gps.conf:system/etc/gps.conf
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -295,8 +319,16 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
     frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
     frameworks/native/data/etc/android.hardware.nfc.hcef.xml:system/etc/permissions/android.hardware.nfc.hcef.xml \
-    device/moto/shamu/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
-    device/moto/shamu/nfc/libnfc-brcm-20795a10.conf:system/etc/libnfc-brcm-20795a10.conf
+    device/motorola/shamu/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
+    device/motorola/shamu/nfc/libnfc-brcm-20795a10.conf:system/etc/libnfc-brcm-20795a10.conf
+
+# NFCEE access control
+PRODUCT_COPY_FILES += \
+    device/motorola/shamu/nfcee_access.xml:system/etc/nfcee_access.xml
+
+# old-apns.conf
+PRODUCT_COPY_FILES += \
+    device/motorola/shamu/old-apns-conf.xml:system/etc/old-apns-conf.xml
 
 # Modem debugger
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
@@ -310,31 +342,49 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.qc.sub.rdump.on=0
 
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/init.shamu.diag.rc.userdebug:root/init.shamu.diag.rc
+    device/motorola/shamu/init.shamu.diag.rc.userdebug:root/init.shamu.diag.rc
 else
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/init.shamu.diag.rc.user:root/init.shamu.diag.rc
+    device/motorola/shamu/init.shamu.diag.rc.user:root/init.shamu.diag.rc
 endif
+
+# Shamu speaker fix
+PRODUCT_PROPERTY_OVERRIDES += \
+   fmas.spkr_6ch=35,20,110 \
+   fmas.spkr_2ch=35,25 \
+   fmas.spkr_angles=10 \
+   fmas.spkr_sgain=0 \
+   media.aac_51_output_enabled=true \
+   persist.rcs.supported=0 \
+   persist.radio.sib16_support=1 \
+   drm.service.enabled=true \
+   persist.audio.dualmic.config=endfire \
+   persist.audio.fluence.voicecall=true \
+   persist.audio.fluence.voicerec=false \
+   persist.audio.fluence.speaker=false \
+   media.aac_51_output_enabled=true
+
+# Shamu speaker fix
+PRODUCT_PROPERTY_OVERRIDES += \
+   fmas.spkr_6ch=35,20,110 \
+   fmas.spkr_2ch=35,25 \
+   fmas.spkr_angles=10 \
+   fmas.spkr_sgain=0 \
+   media.aac_51_output_enabled=true \
+   persist.rcs.supported=0 \
+   persist.radio.sib16_support=1 \
+   drm.service.enabled=true \
+   persist.audio.dualmic.config=endfire \
+   persist.audio.fluence.voicecall=true \
+   persist.audio.fluence.voicerec=false \
+   persist.audio.fluence.speaker=false \
+   media.aac_51_output_enabled=true
 
 # Enable for volte call
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 
-PRODUCT_PROPERTY_OVERRIDES += \
-   ro.hwui.texture_cache_size=72 \
-   ro.hwui.layer_cache_size=48 \
-   ro.hwui.r_buffer_cache_size=8 \
-   ro.hwui.path_cache_size=32 \
-   ro.hwui.gradient_cache_size=1 \
-   ro.hwui.drop_shadow_cache_size=6 \
-   ro.hwui.texture_cache_flushrate=0.4 \
-   ro.hwui.text_small_cache_width=1024 \
-   ro.hwui.text_small_cache_height=1024 \
-   ro.hwui.text_large_cache_width=2048 \
-   ro.hwui.text_large_cache_height=1024
-
-
-PRODUCT_PROPERTY_OVERRIDES += \
-   dalvik.vm.heapgrowthlimit=256m
+# configure the HWUI memory limits
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk)
 
 # In userdebug, add minidebug info the the boot image and the system server to support
 # diagnosing native crashes.
@@ -348,7 +398,7 @@ ifneq (,$(filter userdebug, $(TARGET_BUILD_VARIANT)))
 endif
 
 # setup dalvik vm configs.
-$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-dalvik-heap.mk)
 
 $(call inherit-product-if-exists, hardware/qcom/msm8x84/msm8x84.mk)
 $(call inherit-product-if-exists, vendor/qcom/gpu/msm8x84/msm8x84-gpu-vendor.mk)
@@ -356,10 +406,6 @@ $(call inherit-product-if-exists, vendor/qcom/gpu/msm8x84/msm8x84-gpu-vendor.mk)
 # setup dm-verity configs.
 PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/msm_sdcc.1/by-name/system
 $(call inherit-product, build/target/product/verity.mk)
-
-PRODUCT_PACKAGES += \
-    slideshow \
-    verity_warning_images
 
 # setup scheduler tunable
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -388,7 +434,7 @@ PRODUCT_OEM_PROPERTIES := \
 
 # Copy the qcril.db file from qcril to system. Useful to get the radio tech family for the camped operator
 PRODUCT_COPY_FILES += \
-    device/moto/shamu/qcril.db:system/etc/ril/qcril.db
+    device/motorola/shamu/qcril.db:system/etc/ril/qcril.db
 
 # Reduce client buffer size for fast audio output tracks
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -397,6 +443,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Low latency audio buffer size in frames
 PRODUCT_PROPERTY_OVERRIDES += \
     audio_hal.period_size=192
+
+# set default USB configuration
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    sys.usb.config=mtp,adb \
+    persist.sys.usb.config=mtp,adb \
+    ro.adb.secure=0
 
 # Set correct voice call audio property values
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -407,6 +459,37 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicecomm=false \
     persist.audio.fluence.voicerec=false \
     persist.audio.fluence.speaker=false
+
+# Rich Communications Service is disabled
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.rcs.supported=0
+
+# Set missing telephony props
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.sib16_support=1 \
+    ro.com.android.prov_mobiledata=false
+
+# data qmi adb logmask
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.data.qmi.adb_logmask=0
+
+# WiFi calling
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.data.iwlan.enable=true \
+    persist.radio.ignore_ims_wlan=1 \
+    persist.radio.data_con_rprt=1 \
+    persist.radio.alt_mbn_name=tmo_alt.mbn
+
+# drmservice props
+PRODUCT_PROPERTY_OVERRIDES += \
+    drm.service.enabled=true
+
+# facelock props
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.facelock.black_timeout=700 \
+    ro.facelock.det_timeout=2500 \
+    ro.facelock.rec_timeout=3500 \
+    ro.facelock.est_max_time=600
 
 # OEM Unlock reporting
 ADDITIONAL_DEFAULT_PROPERTIES += \

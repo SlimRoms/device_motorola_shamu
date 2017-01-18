@@ -41,6 +41,7 @@
 #define STATE_HDR_OFF "state=3"
 #define MAX_LENGTH         50
 #define BOOST_SOCKET       "/dev/socket/mpdecision/pb"
+#define WAKE_GESTURE_PATH "/sys/bus/i2c/devices/1-004a/tsp"
 static int client_sockfd;
 static struct sockaddr_un client_addr;
 static int last_state = -1;
@@ -147,7 +148,7 @@ static void process_video_encode_hint(void *metadata)
     }
 }
 
-
+/*
 static void touch_boost()
 {
     int rc, fd;
@@ -169,7 +170,7 @@ static void touch_boost()
         ALOGE("%s: failed to send: %s", __func__, strerror(errno));
     }
 }
-
+*/
 static void low_power(int on)
 {
     int rc;
@@ -223,9 +224,42 @@ static void power_set_interactive(__attribute__((unused)) struct power_module *m
     ALOGV("%s %s", __func__, (on ? "ON" : "OFF"));
     if (on) {
         coresonline(0);
-        touch_boost();
+//        touch_boost();
     } else {
         coresonline(1);
+    }
+}
+
+static void sysfs_write(char *path, char *s)
+{
+    char buf[80];
+    int len;
+    int fd = open(path, O_WRONLY);
+
+    if (fd < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error opening %s: %s\n", path, buf);
+        return;
+    }
+
+    len = write(fd, s, strlen(s));
+    if (len < 0) {
+        strerror_r(errno, buf, sizeof(buf));
+        ALOGE("Error writing to %s: %s\n", path, buf);
+    }
+
+    close(fd);
+}
+
+static void set_feature(struct power_module *module, feature_t feature, int state)
+{
+    switch (feature) {
+    case POWER_FEATURE_DOUBLE_TAP_TO_WAKE:
+        sysfs_write(WAKE_GESTURE_PATH, state ? "AUTO" : "OFF");
+        break;
+    default:
+        ALOGW("Error setting the feature, it doesn't exist %d\n", feature);
+        break;
     }
 }
 
@@ -235,8 +269,8 @@ static void power_hint( __attribute__((unused)) struct power_module *module,
 {
     switch (hint) {
         case POWER_HINT_INTERACTION:
-            ALOGV("POWER_HINT_INTERACTION");
-            touch_boost();
+//            ALOGV("POWER_HINT_INTERACTION");
+//            touch_boost();
             break;
 #if 0
         case POWER_HINT_VSYNC:
@@ -272,4 +306,5 @@ struct power_module HAL_MODULE_INFO_SYM = {
     .init = power_init,
     .setInteractive = power_set_interactive,
     .powerHint = power_hint,
+    .setFeature = set_feature,
 };
