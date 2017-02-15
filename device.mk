@@ -100,6 +100,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/motorola/shamu/spn-conf.xml:system/etc/spn-conf.xml
 
+# Add swap activation script (workaround for the time being)
+PRODUCT_COPY_FILES += \
+    device/motorola/shamu/swapon.sh:system/xbin/swapon.sh
+
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := 560dpi
 # A list of dpis to select prebuilt apk, in precedence order.
