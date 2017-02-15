@@ -51,7 +51,7 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 # handled by the hardware composer
 MAX_VIRTUAL_DISPLAY_DIMENSION := 2048
 
-BOARD_EGL_CFG := device/moto/shamu/egl.cfg
+BOARD_EGL_CFG := device/motorola/shamu/egl.cfg
 
 BOARD_USES_ALSA_AUDIO := true
 
@@ -71,9 +71,9 @@ WIFI_BUS := PCIE
 #Bluetooth defines
 BOARD_HAVE_BLUETOOTH_BCM := true
 ifeq ($(TARGET_PRODUCT),bt_shamu)
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/moto/shamu/bluetooth_extra
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/motorola/shamu/bluetooth_extra
 else
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/moto/shamu/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/motorola/shamu/bluetooth
 endif
 
 TARGET_NO_RADIOIMAGE := true
@@ -81,12 +81,12 @@ TARGET_BOARD_PLATFORM := msm8084
 TARGET_BOOTLOADER_BOARD_NAME := shamu
 TARGET_NO_RPC := true
 
-TARGET_BOARD_INFO_FILE := device/moto/shamu/board-info.txt
+TARGET_BOARD_INFO_FILE := device/motorola/shamu/board-info.txt
 
 USE_OPENGL_RENDERER := true
 TARGET_USES_ION := true
 TARGET_HW_DISK_ENCRYPTION := false
-TARGET_CRYPTFS_HW_PATH := device/moto/shamu/cryptfs_hw
+TARGET_CRYPTFS_HW_PATH := device/motorola/shamu/cryptfs_hw
 
 TARGET_TOUCHBOOST_FREQUENCY := 1500
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -101,14 +101,14 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
-TARGET_RECOVERY_FSTAB = device/moto/shamu/fstab.shamu
+TARGET_RECOVERY_FSTAB = device/motorola/shamu/fstab.shamu
 
-TARGET_RELEASETOOLS_EXTENSIONS := device/moto/shamu
+TARGET_RELEASETOOLS_EXTENSIONS := device/motorola/shamu
 
 # Support Native Layer RF cutback
 BOARD_USES_CUTBACK_IN_RILD := true
 
-BOARD_SEPOLICY_DIRS += device/moto/shamu/sepolicy
+BOARD_SEPOLICY_DIRS += device/motorola/shamu/sepolicy
 
 HAVE_ADRENO_SOURCE:= false
 
@@ -129,4 +129,4 @@ USE_CLANG_PLATFORM_BUILD := true
 # Disable dex-preopt of prebuilts to save space.
 DONT_DEXPREOPT_PREBUILTS := true
 
--include vendor/moto/shamu/BoardConfigVendor.mk
+-include vendor/motorola/shamu/BoardConfigVendor.mk
